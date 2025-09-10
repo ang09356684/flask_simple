@@ -4,7 +4,28 @@ Provides RESTful API endpoints
 """
 
 from flask import Blueprint, jsonify, request
-from app.api import api_bp
+
+# Create API Blueprint
+api_bp = Blueprint('api', __name__)
+
+
+@api_bp.route('/', methods=['GET'])
+def index():
+    """
+    Root endpoint - API information
+    
+    Returns:
+        JSON: API information
+    """
+    return jsonify({
+        'message': 'Flask API',
+        'version': '1.0.0',
+        'status': 'running',
+        'endpoints': {
+            'health': '/api/v1/health',
+            'data': '/api/v1/data'
+        }
+    })
 
 
 @api_bp.route('/health', methods=['GET'])
